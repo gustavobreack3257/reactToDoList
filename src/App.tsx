@@ -1,18 +1,10 @@
-import './App.module.css'
+import "./App.module.css";
+import { Header } from "./Components/Header";
 
 export function App() {
-
-
   return (
-    <>
-      <div>
-
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <Header/>
+    </div>
+  );
 }
-
-

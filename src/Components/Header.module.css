@@ -1,0 +1,8 @@
+.headerStyle {
+    display: flex;
+    height: 12.5rem;
+
+    background: var(--gray-700);
+    justify-content: center;
+    padding: 4.5rem 0 5rem ;
+}
