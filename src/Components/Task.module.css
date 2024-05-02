@@ -1,13 +1,12 @@
 .newTaskInputStyles {
     display: flex;
-    max-width: 46rem;
-    justify-content: space-between;
+    justify-content: center;
 
     margin: calc(0px - 1.5rem - 4px);
     gap: 0.5rem;
 }
 
-.newTaskInputStyles input{
+.newTaskInputStyles input {
     width: 40rem;
     height: 3.5rem;
     column-count: 2;
@@ -28,7 +27,7 @@
 
 .newTaskButtonStyles {
     width: 5.5rem;
-    height: 3.25rem;
+    height: 3.5rem;
     background-color: var(--blue-dark);
 
     display: flex;
@@ -41,3 +40,57 @@
     font-weight: bold;
     color: var(--gray-100);
 }
+
+.taskCounter {
+    margin-top: 4rem;
+    width: 100%;
+
+}
+
+.taskCounter header {
+    max-width: 48rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.tasksCreated {
+    font-weight: bold;
+    color: var(--blue);
+    gap: 0.5rem;
+    column-count: 2;
+
+}
+
+.tasksCreated p {
+    width: 1.5rem;
+    height: 1.25rem;
+
+    border-radius: 0.5rem;
+    padding: 0 0.4rem;
+    background-color: var(--gray-400);
+    color: var(--gray-200);
+
+}
+
+.tasksCompleted {
+    gap: 0.5rem;
+    column-count: 2;
+    color: var(--purple);
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+.tasksCompleted p {
+    width: 1.5rem;
+    height: 1.25rem;
+
+    border-radius: 0.5rem;
+    padding: 0 0.4rem;
+    background-color: var(--gray-400);
+    color: var(--gray-200);
+
+}
+

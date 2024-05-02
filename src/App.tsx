@@ -1,4 +1,4 @@
-import styles from "./App.module.css";
+import styles from './App.module.css'
 
 import "./Global.css"
 
@@ -10,9 +10,9 @@ export function App() {
     <div>
       <Header/>
 
-      <div className={styles.wrapper}>
+      <main className={styles.wrapper}>
         <Task/>
-      </div>
+      </main>
     </div>
   );
 }
