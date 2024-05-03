@@ -1,7 +1,8 @@
 import styles from "./Task.module.css";
 
 import { PlusCircle } from "@phosphor-icons/react";
-import { NoExistingTasks } from "./NoExistingTasks";
+
+import { TaskCard } from "./TaskCard";
 export function Task() {
   return (
     <div>
@@ -24,7 +25,7 @@ export function Task() {
           </strong>
         </header>
 
-        <NoExistingTasks/>
+        <TaskCard/>
       </section>
     </div>
   );
