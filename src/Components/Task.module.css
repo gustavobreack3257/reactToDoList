@@ -39,6 +39,11 @@
     font-size: 1rem;
     font-weight: bold;
     color: var(--gray-100);
+    cursor: pointer;
+}
+
+.newTaskButtonStyles:hover {
+    background-color: var(--blue);
 }
 
 .taskCounter {
