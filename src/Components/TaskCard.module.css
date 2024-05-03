@@ -14,8 +14,11 @@
 }
 
 .task p {
+    flex: 1;
     font-size: 0.85rem;
     color: var(--gray-100);
+
+    margin-top: 0.25rem;
 }
 
 .task div {
