@@ -2,12 +2,13 @@ import styles from "./Task.module.css";
 
 import { PlusCircle } from "@phosphor-icons/react";
 
+import {NoExistingTasks} from './NoExistingTasks'
 import { TaskCard } from "./TaskCard";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
 export function Task() {
-  const [tasks, setTasks] = useState(["Fazer caminhada na praça"]);
-
+  const [tasks, setTasks] = useState(['Fazer caminhada na praça']);
   const [newTaskText, setNewTaskText] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
 
   function handleCreateNewTask(event: FormEvent) {
     event.preventDefault();
@@ -21,18 +22,32 @@ export function Task() {
     setNewTaskText(event.target.value);
   }
 
+  function handleNewTaskInvalid(event: InvalidEvent<HTMLInputElement>) {
+    event.target.setCustomValidity("Esse campo é obrigatório!");
+  }
+
+  function HandleTheCheckButton(){
+    setIsChecked(isChecked => !isChecked)
+  }
+
+  const listTaskEmpty = newTaskText.length === 0;
+
   return (
     <div>
       <form
         onSubmit={handleCreateNewTask}
         className={styles.newTaskInputStyles}
       >
-        <input type="text"
-        placeholder="Adicione uma nova tarefa"
-        value={newTaskText}
-        onChange={handleNewTaskChange} />
+        <input
+          type="text"
+          placeholder="Adicione uma nova tarefa"
+          value={newTaskText}
+          onChange={handleNewTaskChange}
+          onInvalid={handleNewTaskInvalid}
+          required
+        />
 
-        <button className={styles.newTaskButtonStyles}>
+        <button type="submit" disabled={listTaskEmpty} className={styles.newTaskButtonStyles}>
           <strong>Criar</strong>
           <PlusCircle />
         </button>
@@ -48,9 +63,9 @@ export function Task() {
           </strong>
         </header>
 
-        {tasks.map((task) => {
-          return <TaskCard message={task} />;
-        })}
+        {tasks.length > 0 ? tasks.map((task) => {
+          return <TaskCard message={task} onPress={HandleTheCheckButton} isChecked={isChecked}/>;
+        }): <NoExistingTasks/> }
       </section>
     </div>
   );
