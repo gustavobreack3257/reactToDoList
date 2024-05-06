@@ -10,7 +10,7 @@ interface TaskProps {
 export function TaskCard({message, isChecked = false, onPress }: TaskProps){
     return(
         <article className={styles.task} >
-            <button onClick={onPress} className={styles.taskRadius} style={{backgroundColor: isChecked ? '#5E60CE': 'transparent'}}>
+            <button onClick={onPress} className={styles.taskRadius} style={{backgroundColor: isChecked ? '#5E60CE': 'transparent', textDecorationLine: isChecked ? 'line-through': 'none'}}>
                 {isChecked ? <CheckFat style={{color: '#F2F2F2', height: 5, width: 6}}/>: null}
             </button>
 

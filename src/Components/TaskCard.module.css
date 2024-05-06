@@ -54,6 +54,7 @@
     border-color: var(--blue-dark);
 }
 
-.taskRadius:active {
+.taskRadius {
+    text-decoration: line-through;
     background-color: var(--purple-dark);
 }

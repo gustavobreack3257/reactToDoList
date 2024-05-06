@@ -5,15 +5,21 @@ import { PlusCircle } from "@phosphor-icons/react";
 import {NoExistingTasks} from './NoExistingTasks'
 import { TaskCard } from "./TaskCard";
 import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
-export function Task() {
-  const [tasks, setTasks] = useState(['Fazer caminhada na praça']);
-  const [newTaskText, setNewTaskText] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
 
-  function handleCreateNewTask(event: FormEvent) {
+interface Task {
+  taskTitle: string,
+    checked: boolean
+}
+export function Task() {
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [newTaskText, setNewTaskText] = useState("");
+
+
+  function handleCreateNewTask(event: FormEvent,) {
     event.preventDefault();
 
-    setTasks([...tasks, newTaskText]);
+    setTasks([...tasks, {taskTitle: newTaskText, checked: false}]);
+
     setNewTaskText("");
   }
 
@@ -26,12 +32,20 @@ export function Task() {
     event.target.setCustomValidity("Esse campo é obrigatório!");
   }
 
-  function HandleTheCheckButton(){
-    setIsChecked(isChecked => !isChecked)
-  }
+  function HandleTheCheckButton(task: Task){
+    setTasks(prevTasks => {
+      const updatedTasks = prevTasks.map(prevTask => {
+        if (prevTask === task) {
+          return { ...prevTask, checked: !prevTask.checked };
+        }
+        return prevTask;
+      });
+      return updatedTasks;
+    });
+    }
 
   const listTaskEmpty = newTaskText.length === 0;
-
+  const checkedTasksCount = tasks.filter(task => task.checked).length;
   return (
     <div>
       <form
@@ -56,15 +70,15 @@ export function Task() {
       <section className={styles.taskCounter}>
         <header>
           <strong className={styles.tasksCreated}>
-            Tarefas criadas <p>0</p>
+            Tarefas criadas <p>{tasks.length}</p>
           </strong>
           <strong className={styles.tasksCompleted}>
-            Concluidas <p>0</p>
+            Concluidas <p>{checkedTasksCount} de {tasks.length}</p>
           </strong>
         </header>
 
         {tasks.length > 0 ? tasks.map((task) => {
-          return <TaskCard message={task} onPress={HandleTheCheckButton} isChecked={isChecked}/>;
+          return <TaskCard message={task.taskTitle} onPress={() => HandleTheCheckButton(task)} isChecked={task.checked}/>;
         }): <NoExistingTasks/> }
       </section>
     </div>
