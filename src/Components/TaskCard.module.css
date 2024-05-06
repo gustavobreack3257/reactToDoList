@@ -21,7 +21,7 @@
     color: var(--gray-100);
 }
 
-.task div {
+.deleteTaskbutton {
     height: 1.5rem;
     width: 1.5rem;
     padding-top: 0.15rem;
@@ -31,7 +31,7 @@
     align-items: center;
 }
 
-.task div:hover {
+.deleteTaskbutton:hover {
     background-color: var(--gray-400);
     color: var(--danger);
 

@@ -2,23 +2,23 @@ import styles from "./Task.module.css";
 
 import { PlusCircle } from "@phosphor-icons/react";
 
-import {NoExistingTasks} from './NoExistingTasks'
+import { NoExistingTasks } from "./NoExistingTasks";
 import { TaskCard } from "./TaskCard";
 import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
 
-interface Task {
-  taskTitle: string,
-    checked: boolean
+interface TaskProps {
+  taskTitle: string;
+  checked: boolean;
 }
+
 export function Task() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<TaskProps[]>([]);
   const [newTaskText, setNewTaskText] = useState("");
 
-
-  function handleCreateNewTask(event: FormEvent,) {
+  function handleCreateNewTask(event: FormEvent) {
     event.preventDefault();
 
-    setTasks([...tasks, {taskTitle: newTaskText, checked: false}]);
+    setTasks([...tasks, { taskTitle: newTaskText, checked: false }]);
 
     setNewTaskText("");
   }
@@ -32,9 +32,17 @@ export function Task() {
     event.target.setCustomValidity("Esse campo é obrigatório!");
   }
 
-  function HandleTheCheckButton(task: Task){
-    setTasks(prevTasks => {
-      const updatedTasks = prevTasks.map(prevTask => {
+  function deleteTask(taskToDelete: string) {
+    const taskToBeDelete = tasks.filter(task => {
+      return task.taskTitle !== taskToDelete;
+    })
+
+    setTasks(taskToBeDelete)
+  }
+
+  function HandleTheCheckButton(task: TaskProps) {
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.map((prevTask) => {
         if (prevTask === task) {
           return { ...prevTask, checked: !prevTask.checked };
         }
@@ -42,10 +50,10 @@ export function Task() {
       });
       return updatedTasks;
     });
-    }
+  }
 
   const listTaskEmpty = newTaskText.length === 0;
-  const checkedTasksCount = tasks.filter(task => task.checked).length;
+  const checkedTasksCount = tasks.filter((task) => task.checked).length;
   return (
     <div>
       <form
@@ -61,7 +69,11 @@ export function Task() {
           required
         />
 
-        <button type="submit" disabled={listTaskEmpty} className={styles.newTaskButtonStyles}>
+        <button
+          type="submit"
+          disabled={listTaskEmpty}
+          className={styles.newTaskButtonStyles}
+        >
           <strong>Criar</strong>
           <PlusCircle />
         </button>
@@ -73,13 +85,27 @@ export function Task() {
             Tarefas criadas <p>{tasks.length}</p>
           </strong>
           <strong className={styles.tasksCompleted}>
-            Concluidas <p>{checkedTasksCount} de {tasks.length}</p>
+            Concluidas{" "}
+            <p>
+              {checkedTasksCount} de {tasks.length}
+            </p>
           </strong>
         </header>
 
-        {tasks.length > 0 ? tasks.map((task) => {
-          return <TaskCard message={task.taskTitle} onPress={() => HandleTheCheckButton(task)} isChecked={task.checked}/>;
-        }): <NoExistingTasks/> }
+        {tasks.length > 0 ? (
+          tasks.map((task) => {
+            return (
+              <TaskCard
+                message={task.taskTitle}
+                onPress={() => HandleTheCheckButton(task)}
+                isChecked={task.checked}
+                onDeleteTask={deleteTask}
+              />
+            );
+          })
+        ) : (
+          <NoExistingTasks />
+        )}
       </section>
     </div>
   );
